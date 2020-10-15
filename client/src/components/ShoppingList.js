@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { connect } from "react-redux";
-import { getItems } from "../actions/itemActions";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
-function ShoppingList({ getItems }) {
-
-  useEffect(() => {
-    getItems();
-  }, []);
-  
+export default function ShoppingList() {
+  const items = useSelector(state => state.items)
+  const dispatch = useDispatch()
   const newItem = () => {
     const name = prompt("Enter Item Name");
   };
@@ -23,8 +18,8 @@ function ShoppingList({ getItems }) {
 
       <ListGroup>
         <TransitionGroup className="shopping-list">
-          {item.items.map(el => (
-            <CSSTransition key={el.id} timeout={500} classNames="fade">
+          {items.map(item => (
+            <CSSTransition key={item.id} timeout={500} classNames="fade">
               <ListGroupItem>
                 <Button
                   className="remove-btn"
@@ -43,14 +38,3 @@ function ShoppingList({ getItems }) {
     </Container>
   );
 }
-
-ShoppingList.propTypes = {
-  getItems: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired,
-}
-
-const mapStateToProps = state => ({
-  item: state.item
-})
-
-export default connect(mapStateToProps, { getItems })(ShoppingList);
