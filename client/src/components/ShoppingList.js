@@ -2,13 +2,27 @@ import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
+
 
 export default function ShoppingList() {
   const items = useSelector(state => state.items)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch({type: "GET_ITEMS"})
+  }, [])
+
   const newItem = () => {
     const name = prompt("Enter Item Name");
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        name: name, 
+        id: uuidv4()}
+    });
   };
+
 
   return (
     <Container>
@@ -25,7 +39,7 @@ export default function ShoppingList() {
                   className="remove-btn"
                   color="danger"
                   size="sm"
-                
+                  onClick={() => dispatch({type: "DELETE_ITEM", payload: item.id}) }
                 >
                   &times;
                 </Button>
