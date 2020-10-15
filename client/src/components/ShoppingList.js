@@ -35,9 +35,9 @@ export default function ShoppingList() {
                   size="sm"
                   onClick={() => setItems(items.filter(el => item.id !== el.id))}
                 >
-                  Delete Item
+                  &times;
                 </Button>
-                <p>{item.name + " " + item.id}</p>
+                <span>{item.name}</span>
               </ListGroupItem>
             </CSSTransition>
           ))}
