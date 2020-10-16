@@ -17,12 +17,14 @@ export default function(state = initialState, action) {
     case "ADD_ITEM":
       return {
         ...state, 
-        items: [action.payload, ...state.items]
+        items: [action.payload, ...state.items],
+        loading: false,
       }
     case "DELETE_ITEM":
       return {
         ...state,
-        items: state.items.filter(item => item.id !== action.payload)
+        items: state.items.filter(item => item._id !== action.payload),
+        loading: false
       }
     case "ITEMS_LOADING":
       return {

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
 import axios from "axios"
 import { getItems, setLoadingItems, addItem, deleteItem } from "../actions/itemActions";
 
@@ -16,11 +15,12 @@ export default function ShoppingList() {
 
   const newItem = () => {
     const name = prompt("Enter Item Name");
-    const newItem = {
-      name,
-      id: uuidv4()
+    if (name != "") {
+      const newItem = {
+        name,
+      }
+      dispatch(addItem(newItem))
     }
-    dispatch(addItem(newItem))
 
   };
 
@@ -34,13 +34,13 @@ export default function ShoppingList() {
       <ListGroup>
         <TransitionGroup className="shopping-list">
           {items.map(item => (
-            <CSSTransition key={item.id} timeout={500} classNames="fade">
+            <CSSTransition key={item._id} timeout={500} classNames="fade">
               <ListGroupItem>
                 <Button
                   className="remove-btn"
                   color="danger"  
                   size="sm"
-                  onClick={() => dispatch({type: "DELETE_ITEM", payload: item.id}) }
+                  onClick={() => dispatch({type: "DELETE_ITEM", payload: item._id}) }
                 >
                   &times;
                 </Button>

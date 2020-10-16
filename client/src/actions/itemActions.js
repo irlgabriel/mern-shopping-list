@@ -17,8 +17,8 @@ export const setLoadingItems = () => {
 
 export const addItem = (data) => dispatch => {
   dispatch(setLoadingItems());
-  axios.post("/api/items")
-  .then(console.log("item added to backend"))
+  axios.post("/api/items", data)
+  .then(console.log(`item ${data} added to backend`))
   return {
     type: "ADD_ITEM",
     payload: data
