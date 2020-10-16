@@ -37,7 +37,7 @@ export default function ShoppingList() {
               <ListGroupItem>
                 <Button
                   className="remove-btn"
-                  color="danger"
+                  color="danger"  
                   size="sm"
                   onClick={() => dispatch({type: "DELETE_ITEM", payload: item.id}) }
                 >
