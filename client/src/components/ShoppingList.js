@@ -2,28 +2,26 @@ import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios"
-import { getItems, setLoadingItems, addItem, deleteItem } from "../actions/itemActions";
+import { getItems, addItem, deleteItem } from "../actions/itemActions";
 
 export default function ShoppingList() {
   const items = useSelector(state => state.items)
   const dispatch = useDispatch()
   
+  // GET items from back-end on component mount
   useEffect(() => { 
     dispatch(getItems())
   }, [])
 
   const newItem = () => {
     const name = prompt("Enter Item Name");
-    if (name != "") {
+    if (name !== "") {
       const newItem = {
         name,
       }
       dispatch(addItem(newItem))
     }
-
   };
-
 
   return (
     <Container>
@@ -40,11 +38,11 @@ export default function ShoppingList() {
                   className="remove-btn"
                   color="danger"  
                   size="sm"
-                  onClick={() => dispatch({type: "DELETE_ITEM", payload: item._id}) }
+                  onClick={() => dispatch(deleteItem(item._id))}
                 >
                   &times;
                 </Button>
-                <span>{item.name}</span>
+                <span>&nbsp;{item.name}</span>
               </ListGroupItem>
             </CSSTransition>
           ))}

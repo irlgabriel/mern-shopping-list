@@ -6,7 +6,8 @@ export const getItems = () => dispatch => {
   .then(res => dispatch({
     type: "GET_ITEMS",
     payload: res.data
-  }))
+    })
+  )
 }
 
 export const setLoadingItems = () => {
@@ -17,17 +18,26 @@ export const setLoadingItems = () => {
 
 export const addItem = (data) => dispatch => {
   dispatch(setLoadingItems());
-  axios.post("/api/items", data)
-  .then(console.log(`item ${data} added to backend`))
-  return {
-    type: "ADD_ITEM",
-    payload: data
-  }
+  axios
+  .post("/api/items", data)
+  .then(res =>
+    dispatch({
+      type: "ADD_ITEM",
+      payload: res.data,
+    })
+  )
 }
 
-export const deleteItem = (id) => {
-  return {
-    type: "DELETE_ITEM",
-    payload: id
-  }
+export const deleteItem = (id) => dispatch => {
+  dispatch(setLoadingItems());
+  console.log(id)
+  axios
+  .delete(`api/items/${id}`)
+  .then(res => 
+    dispatch({
+      type: "DELETE_ITEM",
+      payload: id,
+    })  
+  )
+  .catch(err => console.log(err))
 }
