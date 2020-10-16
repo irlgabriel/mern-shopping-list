@@ -4,13 +4,14 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
-
 export default function ShoppingList() {
   const items = useSelector(state => state.items)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch({type: "GET_ITEMS"})
+  
+  useEffect(() => { 
+    dispatch({
+      type: "GET_ITEMS"
+    })
   }, [])
 
   const newItem = () => {

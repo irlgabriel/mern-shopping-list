@@ -1,17 +1,16 @@
-
+import { getItems } from "../actions/itemActions";
 
 const initialState = {
   items: [],
   loading: false,
 }
 
+// itemReducer
 export default function(state = initialState, action) {
   switch(action.type) {
     case "GET_ITEMS":
       return {
-        ...state,
-        items: action.payload,
-        loading: false,
+        ...state, 
       }
     case "ADD_ITEM":
       return {
