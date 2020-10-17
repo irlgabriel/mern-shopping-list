@@ -13,22 +13,8 @@ export default function ShoppingList() {
     dispatch(getItems())
   }, [])
 
-  const newItem = () => {
-    const name = prompt("Enter Item Name");
-    if (name !== "") {
-      const newItem = {
-        name,
-      }
-      dispatch(addItem(newItem))
-    }
-  };
-
   return (
     <Container>
-      <Button onClick={newItem} color="dark" style={{ marginBottom: "2rem" }}>
-        Add Item
-      </Button>
-
       <ListGroup>
         <TransitionGroup className="shopping-list">
           {items.map(item => (

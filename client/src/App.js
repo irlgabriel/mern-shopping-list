@@ -4,18 +4,20 @@ import store from "./store";
 import { loadUser } from "./actions/authActions";
 
 import AppNavbar from "./components/AppNavbar";
+import ItemModal from './components/ItemModal';
 import ShoppingList from "./components/ShoppingList";
 import "./App.css";
 
 function App() {
   useEffect(() => {
-    console.log("dispatching loadUser")
-    store.dispatch(loadUser);
+    store.dispatch(loadUser());
   }, [])
   return (
     <Provider store={store}>
       <div className="App">
         <AppNavbar />
+        <ItemModal />
+
         <ShoppingList />
       </div>
     </Provider>

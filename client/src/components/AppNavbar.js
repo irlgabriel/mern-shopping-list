@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap-grid.min.css";
-
 import {
   Collapse,
   Navbar,
@@ -11,6 +10,7 @@ import {
   NavLink,
   Container,
 } from "reactstrap";
+import RegisterModal from "./auth/RegisterModal";
 
 export default function AppNavbar() {
   const [isOpen, setOpen] = useState(false);
@@ -28,7 +28,7 @@ export default function AppNavbar() {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto">
               <NavItem>
-                <NavLink href="https://github.com/irlgabriel">Github</NavLink>
+                <RegisterModal />                
               </NavItem>
             </Nav>
           </Collapse>
