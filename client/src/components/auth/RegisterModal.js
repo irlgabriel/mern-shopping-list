@@ -68,11 +68,11 @@ export default () => {
           }
           <Form onSubmit={submitHandler}>
             <FormGroup>
-              <Label htmlFor="email">Username</Label>
+              <Label htmlFor="email">Email</Label>
               <Input autoComplete="off" onChange={onEmailChange} name="name" type="name" placeholder="Username..." />
             </FormGroup>
             <FormGroup>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Username</Label>
               <Input autoComplete="off" onChange={onNameChange} name="email" type="text" placeholder="Email..." />
             </FormGroup>
             <FormGroup>

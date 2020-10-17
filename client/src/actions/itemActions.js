@@ -30,9 +30,12 @@ export const addItem = (data) => dispatch => {
 }
 
 export const deleteItem = (id) => dispatch => {
-  dispatch(setLoadingItems());
   axios
-  .delete(`api/items/${id}`)
+  .delete(`/api/items/${id}`, {
+    headers: {
+      //x-auth-token? 
+    }
+  })
   .then(res => 
     dispatch({
       type: "DELETE_ITEM",

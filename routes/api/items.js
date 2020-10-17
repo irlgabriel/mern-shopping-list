@@ -31,10 +31,9 @@ router.post('/', auth, (req, res) => {
 // @desc Delete an item
 // @access Private
 router.delete('/:id', auth, (req, res) => {
-  console.log(req.params.id)
   Item
     .findById(req.params.id)
-    .then(item => item.remove().then(() => res.json({success: true})))
+    .then(item => item.remove().then(() => res.status(200).json({success: true})))
     .catch(err => res.status(404).json({success: false, message: err}))
 
 })

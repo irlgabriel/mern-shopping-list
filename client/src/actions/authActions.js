@@ -7,7 +7,7 @@ export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: "USER_LOADING" });
 
   // Get token from localstorage
-  const token = getState().auth.token;
+  const token = localStorage.getItem('token');
 
   // Headers
   const config = {
@@ -67,7 +67,7 @@ export const login = ({ email, password }) => dispatch => {
     }
   }
   const body = JSON.stringify({ email, password })
-  axios.post("api/users/login", body, config)
+  axios.post("/api/users/login", body, config)
     .then(res => {
       dispatch({
         type: "LOGIN_SUCCESS",
@@ -83,5 +83,11 @@ export const login = ({ email, password }) => dispatch => {
 }
 
 export const logout = () => dispatch => {
-  // dispatch()
+  axios.get("/api/users")
+    .then(
+      dispatch({
+        type: "LOGOUT_SUCCESS",
+      })
+    )
+  
 }

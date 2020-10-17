@@ -51,7 +51,10 @@ export default function AppNavbar() {
               {
                 isAuth && 
                 <NavItem>
-                  <NavLink onClick={logoutHandler}>Log Out</NavLink>
+                  <NavLink 
+                    href=""
+                    onClick={logoutHandler}
+                  >Log Out</NavLink>
                 </NavItem>
               }
             </Nav>

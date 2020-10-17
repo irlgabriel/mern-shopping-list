@@ -105,7 +105,7 @@ router.post('/login', (req, res) => {
     })
 })
 // @route api/users/profile
-// @desc Get use data
+// @desc Get user data
 // @access Private
 router.get('/profile', auth, (req, res) => {
   User.findById(req.user.id) 
