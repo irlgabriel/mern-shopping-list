@@ -1,4 +1,5 @@
 import axios from "axios"
+import { returnErrors } from "./errorActions";
 
 export const getItems = () => dispatch => {
   dispatch(setLoadingItems());
@@ -39,5 +40,7 @@ export const deleteItem = (id) => dispatch => {
       payload: id,
     })  
   )
-  .catch(err => console.log(err))
+  .catch(err => {
+    dispatch(returnErrors(err.response.data, err.response.status))
+  })
 }

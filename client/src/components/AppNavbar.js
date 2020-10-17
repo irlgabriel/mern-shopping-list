@@ -11,6 +11,7 @@ import {
   Container,
 } from "reactstrap";
 import RegisterModal from "./auth/RegisterModal";
+import LoginModal from "./auth/LoginModal";
 
 export default function AppNavbar() {
   const [isOpen, setOpen] = useState(false);
@@ -29,6 +30,9 @@ export default function AppNavbar() {
             <Nav className="ml-auto">
               <NavItem>
                 <RegisterModal />                
+              </NavItem>
+              <NavItem>
+                <LoginModal />
               </NavItem>
             </Nav>
           </Collapse>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../actions/authActions";
+import { login } from "../../actions/authActions";
 
 import { 
   Container,
@@ -21,15 +21,10 @@ export default () => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
   const handleToggle = () => {
     setModal(!modal);
-  }
-
-  const onNameChange = (e) => {
-    setName(e.target.value)
   }
 
   const onEmailChange = (e) => {
@@ -42,36 +37,31 @@ export default () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const newUser = {
-      name,
+    const user = {
       email,
       password
     }
-    dispatch(register(newUser));
-    if(error.id !== "REGISTER_FAIL") handleToggle();
+    dispatch(login(user));
+    if(error.id !== "LOGIN_FAIL") handleToggle();
   }
 
   return(
     <Container >
       <NavLink onClick={handleToggle} href='#'>
-        Register
+        Login
       </NavLink>
       <Modal isOpen={modal} toggle={handleToggle}>
-        <ModalHeader>Register a new account</ModalHeader>
+        <ModalHeader>Log in</ModalHeader>
         <ModalBody>
           {
-            error.id === "REGISTER_FAIL" 
+            error.id === "LOGIN_FAIL" 
               ? <Alert color="danger">{error.msg}</Alert>
             : null
           }
           <Form onSubmit={submitHandler}>
             <FormGroup>
-              <Label htmlFor="email">Username</Label>
-              <Input autoComplete="off" onChange={onEmailChange} name="name" type="name" placeholder="Username..." />
-            </FormGroup>
-            <FormGroup>
               <Label htmlFor="email">Email</Label>
-              <Input autoComplete="off" onChange={onNameChange} name="email" type="text" placeholder="Email..." />
+              <Input autoComplete="off" onChange={onEmailChange} name="email" type="text" placeholder="Email..." />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="password">Password</Label>
@@ -79,7 +69,7 @@ export default () => {
             </FormGroup>
             <Button
               color="dark"
-            >Register</Button>
+            >Login</Button>
           </Form>
         </ModalBody>
       </Modal>

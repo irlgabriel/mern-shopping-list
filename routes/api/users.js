@@ -62,11 +62,11 @@ router.post('/register', (req, res) => {
   })
 })
 
-// @route POST /api/users/register
+// @route POST /api/users/login
 // @desc logs in user
 // @access public
 
-router.post('/login', (req, res ) => {
+router.post('/login', (req, res) => {
   const { email, password } = req.body;
   
   // Simple validations
