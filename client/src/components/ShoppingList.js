@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getItems, addItem, deleteItem } from "../actions/itemActions";
 
 export default function ShoppingList() {
-  const items = useSelector(state => state.items)
+  const items = useSelector(state => state.item.items)
   const dispatch = useDispatch()
   
   // GET items from back-end on component mount
