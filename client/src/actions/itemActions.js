@@ -31,7 +31,6 @@ export const addItem = (data) => dispatch => {
 
 export const deleteItem = (id) => dispatch => {
   dispatch(setLoadingItems());
-  console.log(id)
   axios
   .delete(`api/items/${id}`)
   .then(res => 

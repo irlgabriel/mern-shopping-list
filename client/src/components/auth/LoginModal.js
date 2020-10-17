@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/authActions";
+import { clearErrors } from "../../actions/errorActions"
 
 import { 
   Container,
@@ -25,6 +26,7 @@ export default () => {
 
   const handleToggle = () => {
     setModal(!modal);
+    dispatch(clearErrors())
   }
 
   const onEmailChange = (e) => {
