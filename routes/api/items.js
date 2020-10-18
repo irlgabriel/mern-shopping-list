@@ -30,12 +30,19 @@ router.post('/', auth, (req, res) => {
 // @route DELETE api/items/:id
 // @desc Delete an item
 // @access Private
-router.delete('/:id', auth, (req, res) => {
-  Item
-    .findById(req.params.id)
-    .then(item => item.remove().then(() => res.status(200).json({success: true})))
-    .catch(err => res.status(404).json({success: false, message: err}))
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const item = await Item.findById(req.params.id);
+    if (!item) throw Error('No item found');
 
+    const removed = await item.remove();
+    if (!removed)
+      throw Error('Something went wrong while trying to delete the item');
+
+    res.status(200).json({ success: true });
+  } catch (e) {
+    res.status(400).json({ msg: e.message, success: false });
+  }
 })
 
 module.exports = router;

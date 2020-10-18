@@ -17,7 +17,7 @@ import LoginModal from "./auth/LoginModal";
 
 export default function AppNavbar() {
   const dispatch = useDispatch()
-  const isAuth = useSelector(state => state.auth.isAuthenticated)
+  const auth = useSelector(state => state.auth)
   const [isOpen, setOpen] = useState(false);
 
   const logoutHandler = () => {
@@ -37,23 +37,23 @@ export default function AppNavbar() {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto">
               {
-                !isAuth && 
+                !auth.isAuthenticated && 
                 <NavItem>
                   <RegisterModal />                
                 </NavItem>
               }
               {
-                !isAuth &&
+                !auth.isAuthenticated &&
                 <NavItem>
                   <LoginModal />
                 </NavItem>
               }
               {
-                isAuth && 
+                auth.isAuthenticated && 
                 <NavItem>
                   <NavLink 
-                    href=""
                     onClick={logoutHandler}
+                    style={{cursor: "pointer  "}}
                   >Log Out</NavLink>
                 </NavItem>
               }

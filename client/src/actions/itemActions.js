@@ -19,8 +19,13 @@ export const setLoadingItems = () => {
 
 export const addItem = (data) => dispatch => {
   dispatch(setLoadingItems());
+  const config = {
+    headers: {
+      'x-auth-token': localStorage.getItem('token')
+    }
+  }
   axios
-  .post("/api/items", data)
+  .post("/api/items", data, config)
   .then(res =>
     dispatch({
       type: "ADD_ITEM",
@@ -30,13 +35,15 @@ export const addItem = (data) => dispatch => {
 }
 
 export const deleteItem = (id) => dispatch => {
+  // Make delete call to Items API
   axios
   .delete(`/api/items/${id}`, {
     headers: {
-      //x-auth-token? 
+      'x-auth-token': localStorage.getItem('token')
     }
   })
   .then(res => 
+    // Then dispatch to redux to update items state
     dispatch({
       type: "DELETE_ITEM",
       payload: id,

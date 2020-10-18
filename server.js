@@ -10,8 +10,8 @@ const app = express();
 // Bodyparser Middleware
 app.use(express.json());
 
-//
-const db = config.get('mongoURI');
+// ENV VARS
+const db = config.get("MONGO_URI");
 
 // Connect to mongo
 mongoose

@@ -42,7 +42,7 @@ router.post('/register', (req, res) => {
             {
               id: user.id,
             },
-            config.get('jwtSecret'),
+            config.get("JWT_SECRET"),
             { expiresIn: 3600 },
             (err, token) => {
               if(err) throw err;
@@ -87,7 +87,7 @@ router.post('/login', (req, res) => {
             {
               id: user.id,
             },
-            config.get('jwtSecret'),
+            config.get("JWT_SECRET"),
             { expiresIn: 3600 },
             (err, token) => {
               if(err) throw err;

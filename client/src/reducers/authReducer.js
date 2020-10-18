@@ -13,7 +13,7 @@ export default function(state = initialState, action) {
         ...state,
         isLoading: true,
       }
-    case "USER_LOADAED":
+    case "USER_LOADED":
       return {
         ...state,
         isLoading: false,
