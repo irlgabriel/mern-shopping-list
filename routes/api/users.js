@@ -71,18 +71,18 @@ router.post('/login', (req, res) => {
   
   // Simple validations
   if(!email || !password) {
-    return res.status(400).json({message: "Please enter all fields"})
+    return res.status(400).json({msg: "Please enter all fields"})
   }
 
   // Check for existing user
   User.findOne({ email })
     .then(user => {
-      if(!user) return res.status(400).json({message: "User does not exist"})
+      if(!user) return res.status(400).json({msg: "User does not exist"})
     
       // Validate password
       bcrypt.compare(password, user.password)
         .then(isMatch => {
-          if(!isMatch) return res.status(400).json({message: "Incorrect Password"})
+          if(!isMatch) return res.status(400).json({msg: "Incorrect Password"})
           jwt.sign(
             {
               id: user.id,

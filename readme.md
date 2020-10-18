@@ -5,4 +5,6 @@
 ### - [Deployed to Heroku](https://tranquil-anchorage-36599.herokuapp.com)
 
 ## - ISSUES
-### - Cannot figure why I can't delete items when I am logged in :@@@@
+### - [SOLVED] Cannot figure why I can't delete items when I am logged in :@@@@ 
+  #### - I was not sending the auth token in the header when submiting requests to private routes
+### - How to prevent modal from closing when there's a login/register/item error after submiting.

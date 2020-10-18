@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions"
@@ -20,9 +20,14 @@ import {
 export default () => {
   const error = useSelector(state => state.error)
   const dispatch = useDispatch();
+  const [err, setErr] = useState(error)
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    setErr(error)
+  }, [error])
 
   const handleToggle = () => {
     setModal(!modal);
@@ -44,7 +49,7 @@ export default () => {
       password
     }
     dispatch(login(user));
-    if(error.id !== "LOGIN_FAIL") handleToggle();
+    if(!err.id) handleToggle();
   }
 
   return(
@@ -52,12 +57,12 @@ export default () => {
       <NavLink onClick={handleToggle} href='#'>
         Login
       </NavLink>
-      <Modal isOpen={modal} toggle={handleToggle}>
+      <Modal isOpen={modal}>
         <ModalHeader>Log in</ModalHeader>
         <ModalBody>
           {
-            error.id === "LOGIN_FAIL" 
-              ? <Alert color="danger">{error.msg}</Alert>
+            err.id === "LOGIN_FAIL" 
+              ? <Alert color="danger">{err.msg}</Alert>
             : null
           }
           <Form onSubmit={submitHandler}>

@@ -88,6 +88,18 @@ export const logout = () => dispatch => {
       dispatch({
         type: "LOGOUT_SUCCESS",
       })
-    )
-  
+    ) 
+}
+
+// Headers with token if available in state!
+
+export const tokenConfig = () => (dispatch, getState) => {
+  const token = getState.auth.token;
+  const config = {
+    headers: {
+    'Content-type': 'application/json'
+    } 
+  }
+  if(token) config.headers['x-auth-token'] = token;
+  return config;
 }

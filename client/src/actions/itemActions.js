@@ -17,13 +17,17 @@ export const setLoadingItems = () => {
   }
 }
 
-export const addItem = (data) => dispatch => {
-  dispatch(setLoadingItems());
+export const addItem = (data) => (dispatch, getState) => {
+
+  // Set headers
   const config = {
     headers: {
-      'x-auth-token': localStorage.getItem('token')
+      'Content-type': 'application/json'
     }
   }
+  const { auth } = getState()
+  const token = auth.token
+  if(token) config.headers['x-auth-token'] = token;
   axios
   .post("/api/items", data, config)
   .then(res =>
@@ -34,14 +38,20 @@ export const addItem = (data) => dispatch => {
   )
 }
 
-export const deleteItem = (id) => dispatch => {
+export const deleteItem = (id) => (dispatch, getState) => {
+  
+  // Set headers
+  const config = {
+    headers: {
+      'Content-type': 'application/json'
+    }
+  }
+  const { auth } = getState()
+  const token = auth.token
+  if(token) config.headers['x-auth-token'] = token;
   // Make delete call to Items API
   axios
-  .delete(`/api/items/${id}`, {
-    headers: {
-      'x-auth-token': localStorage.getItem('token')
-    }
-  })
+  .delete(`/api/items/${id}`, config)
   .then(res => 
     // Then dispatch to redux to update items state
     dispatch({
@@ -50,6 +60,7 @@ export const deleteItem = (id) => dispatch => {
     })  
   )
   .catch(err => {
-    dispatch(returnErrors(err.response.data, err.response.status))
+    console.log(err.response)
+    dispatch(returnErrors(err.response.data, err.response.status, "ITEM_ERROR"))
   })
 }
