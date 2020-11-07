@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions"
@@ -20,18 +20,27 @@ import {
 export default () => {
   const error = useSelector(state => state.error)
   const dispatch = useDispatch();
-  const [err, setErr] = useState(error)
+  const [err, setErr] = useState({})
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const prevError = useRef(err)
+
   useEffect(() => {
-    setErr(error)
+    console.log("error selector changed!")
+    if(error !== err) {
+      if(error.id === "LOGIN_FAIL") {
+        setErr(error);
+      } else  {
+        setErr({})
+      }
+    }
   }, [error])
 
   const handleToggle = () => {
     setModal(!modal);
-    dispatch(clearErrors())
+    // dispatch(clearErrors())
   }
 
   const onEmailChange = (e) => {
@@ -49,7 +58,7 @@ export default () => {
       password
     }
     dispatch(login(user));
-    if(!err.id) handleToggle();
+    if(err.id !== "LOGIN_FAIL") handleToggle();
   }
 
   return(

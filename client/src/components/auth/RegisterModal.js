@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions"
@@ -20,10 +20,15 @@ import {
 export default () => {
   const error = useSelector(state => state.error)
   const dispatch = useDispatch();
+  const [err, setErr] = useState(error);
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    setErr(error);
+  }, [error])
 
   const handleToggle = () => {
     setModal(!modal);
@@ -62,17 +67,17 @@ export default () => {
         <ModalHeader>Register a new account</ModalHeader>
         <ModalBody>
           {
-            error.id === "REGISTER_FAIL" 
-              ? <Alert color="danger">{error.msg}</Alert>
+            err.id === "REGISTER_FAIL" 
+              ? <Alert color="danger">{err.msg}</Alert>
             : null
           }
           <Form onSubmit={submitHandler}>
             <FormGroup>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="name">Username</Label>
               <Input autoComplete="off" onChange={onEmailChange} name="name" type="name" placeholder="Username..." />
             </FormGroup>
             <FormGroup>
-              <Label htmlFor="email">Username</Label>
+              <Label htmlFor="email">Email</Label>
               <Input autoComplete="off" onChange={onNameChange} name="email" type="text" placeholder="Email..." />
             </FormGroup>
             <FormGroup>

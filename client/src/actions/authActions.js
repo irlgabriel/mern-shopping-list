@@ -75,6 +75,7 @@ export const login = ({ email, password }) => dispatch => {
       })
     })
     .catch(err => {
+      console.log(err.response)
       dispatch(returnErrors(err.response.data, err.response.status, "LOGIN_FAIL"))
       dispatch({
         type: "LOGIN_FAIL"
@@ -89,17 +90,4 @@ export const logout = () => dispatch => {
         type: "LOGOUT_SUCCESS",
       })
     ) 
-}
-
-// Headers with token if available in state!
-
-export const tokenConfig = () => (dispatch, getState) => {
-  const token = getState.auth.token;
-  const config = {
-    headers: {
-    'Content-type': 'application/json'
-    } 
-  }
-  if(token) config.headers['x-auth-token'] = token;
-  return config;
 }
